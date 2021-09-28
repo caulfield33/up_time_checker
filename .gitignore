@@ -1,0 +1,7 @@
+node_modules
+.idea
+.vscode
+dist
+package-lock.json
+.env
+data/database.db

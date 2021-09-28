@@ -1,0 +1,9 @@
+node_modules
+.idea
+.vscode
+dist
+package-lock.json
+Dockerfile
+nodemon.json
+Readme.md
+.env.example
