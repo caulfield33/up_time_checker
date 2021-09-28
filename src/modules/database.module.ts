@@ -74,7 +74,7 @@ export default class DatabaseModule {
         })
     }
 
-    public async getResourceIssuesThisMount(resource: string): Promise<number> {
+    public async getResourceIssuesThisMonth(resource: string): Promise<number> {
         const db = await this.database;
 
         return new Promise((resolve, reject) => {

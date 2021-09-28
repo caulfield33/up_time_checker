@@ -9,7 +9,7 @@ export default class MonitoringModule {
 
     private downResources: { [key: string]: {start: Date, ignore: boolean} } = {};
 
-    private readonly downMessage = (resource: string, thisMount: number, fromStart: number) => ({
+    private readonly downMessage = (resource: string, thisMonth: number, fromStart: number) => ({
         'username': 'Mr.Anderson',
         'text': `Resource ${resource} is down!!!`,
         'icon_emoji': ':boom:',
@@ -17,8 +17,8 @@ export default class MonitoringModule {
             'color': '#ff0000',
             'fields': [
                 {
-                    'title': 'This mount',
-                    'value': `${thisMount}`,
+                    'title': 'This month',
+                    'value': `${thisMonth}`,
                     'short': true
                 },
                 {
@@ -113,12 +113,12 @@ export default class MonitoringModule {
     private async downResourceNotify(resource: string): Promise<void> {
         await this.database.insertIssue(resource, 'down', new Date())
 
-        const [fromStart, thisMount] = await Promise.all([
+        const [fromStart, thisMonth] = await Promise.all([
             this.database.getResourceIssuesFromStart(resource),
-            this.database.getResourceIssuesThisMount(resource),
+            this.database.getResourceIssuesThisMonth(resource),
         ])
 
-        const msg = this.downMessage(resource, thisMount, fromStart);
+        const msg = this.downMessage(resource, thisMonth, fromStart);
 
         await this.instance.post(config.slackWebhookUrl, msg);
 
